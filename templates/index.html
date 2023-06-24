@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="static/img/fav/fav.ico" type="image">
+    <link rel="apple-touch-icon" sizes="180x180" href="static/img/fav/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="static/img/fav/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="static/img/fav/favicon-16x16.png">
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Системы бесперебойного питания - Завод Импульс</title>
+  </head>
+  <body>
+    <header class="pt-3">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+          <a class="navbar-brand" href="https://impulspnz.ru/" target="_blank">
+            <img src="static/img/logo.png" height="50" class="" alt="">
+          </a>
+          <div class="d-flex justify-content-end">
+            <ul class="nav nav-pills">
+              <li class="nav-item pe-5">
+                <a class="nav-link" href="add">
+                  Добавить данные
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://impulspnz.ru/kontaktyi" target="_blank">
+                  Контакты
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <section class="container my-5">
+        <div class="row">
+          <h1>Вольтметры</h1>
+          <div class="col-12 col-lg-7 my-5">
+            <table width="100%">
+              <tr>
+                <td style="text-align: center; width=5%">ID</td>
+                <td style="text-align: center; width=20%">НАЗВАНИЕ</td>
+                <td style="text-align: center; width=20%">ОПИСАНИЕ</td>
+                <td style="text-align: center; width=20%">ЗНАЧЕНИЕ</td>
+                <td style="text-align: center; width=35%">МЕТКА ВРЕМЕНИ</td>
+              </td>
+              {% for item in items %}
+                  <tr>
+                      <td style="text-align: center; width=5%">{{ item.id }}</td>
+                      <td style="text-align: center; width=20%">{{ item.name }}</td>
+                      <td style="text-align: center; width=20%">{{ item.description }}</td>
+                      <td style="text-align: center; width=20%">{{ item.value }}</td>
+                      <td style="text-align: center; width=35%">{{ item.timestamp }}</td>
+                  </td>
+              {% endfor %}
+            </table>
+          </div>
+          <div class="col-12 col-lg-5" style="background-color: rgb(255, 255, 255)">
+            <canvas id="myChart"></canvas>
+          </div>
+          <script>
+            const labels = {{ labels | tojson}};
+            const data = {
+              labels: labels,
+              datasets: [{
+                label: 'Показания с вольтметров',
+                backgroundColor: '#E22545',
+                borderColor: '#E22545',
+                data: {{ data | tojson}},
+              }]
+            };
+            const config = {
+              type: 'line',
+              data: data,
+              options: { maintainAspectRatio: false }
+            };
+            const myChart = new Chart(
+              document.getElementById('myChart'),
+              config
+            );
+          </script>
+        </div>
+      </section>
+    </main>
+    <footer class="fixed-bottom text-center py-3">
+      <p class="small">© Завод Импульс</p>
+    </footer>
+  </body>
+</html>

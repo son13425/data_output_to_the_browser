@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="static/img/fav/fav.ico" type="image">
+    <link rel="apple-touch-icon" sizes="180x180" href="static/img/fav/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="static/img/fav/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="static/img/fav/favicon-16x16.png">
+    <link rel="stylesheet" href="static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/style.css">
+    <title>Системы бесперебойного питания - Завод Импульс</title>
+    <style>body{background-color: rgb(255, 255, 255)}</style>
+  </head>
+  <body>
+    <div class="window" id="myForm">
+      <form class="forma" method="POST" novalidate>
+        <h2>ДОБАВИТЬ ДАННЫЕ</h2>
+        <br />
+        {{ form.csrf_token }}
+        {{ form.name(class="form-control form-control-lg py-3 mb-3", placeholder=form.name.label.text) }}
+        <p>
+          {% if form.name.errors %}
+            {% for error in form.name.errors %}
+              <span style="color: red">{{ error }}</span>
+            {% endfor %}
+          {% endif %}
+        </p>
+        {{ form.description(class="form-control form-control-lg py-3 mb-3", placeholder=form.description.label.text) }}
+        <p></p>
+        {{ form.value(class="form-control form-control-lg py-3 mb-3", placeholder=form.value.label.text, rows="3", cols="40")}}
+        <p class="text-danger">
+          {% if form.value.errors %}
+            {% for error in form.value.errors %}
+              {{ error }}
+            {% endfor %}
+          {% endif %}
+        </p>
+        {{ form.submit(class="button px-5 py-3 btn") }}
+      </form>
+    </div>
+  </body>
+</html>
