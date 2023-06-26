@@ -52,6 +52,36 @@ python3 -m pip install --upgrade pip
 pip install -r requirements.txt
 ```
 
+Добавить один объект в базу данных:
+
+```
+flask shell
+```
+
+```
+from app import db
+```
+
+```
+db.create_all()
+```
+
+```
+from app import Data
+```
+
+```
+data = Data(name='str', description='str', value=int)
+```
+
+```
+db.session.add(data)
+```
+
+```
+db.session.commit()
+```
+
 Запустить приложение:
 
 ```
